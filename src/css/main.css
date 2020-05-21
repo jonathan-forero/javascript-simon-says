@@ -17,6 +17,7 @@ body {
 }
 
 .color {
+  cursor: pointer;
   height: 50%;
   display: inline-block;
   width: 50%;
