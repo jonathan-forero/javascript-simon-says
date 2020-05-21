@@ -19,7 +19,7 @@ class Game {
   }
 
   init = () => {
-    btnStart.classList.add('hide');
+    this.toggleBtnStart();
     this.level = FIRST_LEVEL;
     this.colors = {
       blue,
@@ -27,6 +27,14 @@ class Game {
       orange,
       green,
     };
+  };
+
+  toggleBtnStart = () => {
+    if (btnStart.classList.contains('hide')) {
+      btnStart.classList.remove('hide');
+    } else {
+      btnStart.classList.add('hide');
+    }
   };
 
   createSecuence = () => {
@@ -95,6 +103,17 @@ class Game {
     this.colors.green.removeEventListener('click', this.pickColor);
   };
 
+  showNotification = notification => {
+    if (notification === 'win') {
+      swal('Simon Says', 'You Won!', 'success').then(this.init);
+    } else {
+      swal('Simon Says', 'Game Over!', 'error').then(() => {
+        this.removeClickEvents();
+        this.init();
+      });
+    }
+  };
+
   pickColor = ev => {
     const pickedColorName = ev.target.dataset.color;
     const pickedColorNumber = this.getNumberFromColor(pickedColorName);
@@ -105,13 +124,13 @@ class Game {
         this.level++;
         this.removeClickEvents();
         if (this.level === LAST_LEVEL + 1) {
-          // WON!
+          this.showNotification('win');
         } else {
           setTimeout(this.setNextLevel, TIME_BETWEEN_LEVELS);
         }
       }
     } else {
-      // GAME OVER
+      this.showNotification('gameOver');
     }
   };
 }
