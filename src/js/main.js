@@ -7,13 +7,25 @@ const btnStart = document.getElementById('btnStart');
 class Game {
   constructor() {
     this.init();
+    this.createSecuence();
   }
 
   init() {
     btnStart.classList.add('hide');
+    this.level = 1;
+    this.colors = {
+      blue,
+      purple,
+      orange,
+      green,
+    };
+  }
+
+  createSecuence() {
+    this.secuence = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4));
   }
 }
 
 function startGame() {
-  var game = new Game();
+  window.game = new Game();
 }
